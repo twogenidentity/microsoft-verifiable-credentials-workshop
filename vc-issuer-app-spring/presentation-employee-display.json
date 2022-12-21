@@ -1,0 +1,40 @@
+{
+  "locale": "en-US",
+  "card": {
+    "backgroundColor": "#1b46b3",
+    "description": "Use your verified credential to prove to anyone that you know all about verifiable credentials.",
+    "issuedBy": "Magnolia Inc.",
+    "textColor": "#ffffff",
+    "title": "Verified Credential Employee",
+    "logo": {
+      "description": "Verified Credential Corporate Employee",
+      "uri": "https://twogenidentity.com/wp-content/uploads/2022/12/enterprise-v2.png"
+    }
+  },
+  "consent": {
+    "instructions": "Sign in with your account to get your card.",
+    "title": "Do you want to get your Employee Verified Credential?"
+  },
+  "claims": [
+    {
+      "claim": "vc.credentialSubject.userName",
+      "label": "User name",
+      "type": "String"
+    },
+    {
+      "claim": "vc.credentialSubject.displayName",
+      "label": "Display name",
+      "type": "String"
+    },
+    {
+      "claim": "vc.credentialSubject.firstName",
+      "label": "First name",
+      "type": "String"
+    },
+    {
+      "claim": "vc.credentialSubject.lastName",
+      "label": "Last name",
+      "type": "String"
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+server:
+  port: ${server_port:8081}
+  servlet:
+    context-path: "/issuer"
+  use-forward-headers: true
+
+vc:
+  authority: ${vc_authority:did:web:xxx.sa.ngrok.io}
+  client-name: 'Verifiable Credential Employee'
+  credential-manifest: ${vc_credential_manifest:https://verifiedid.did.msidentity.com/v1.0/tenants/xxx/verifiableCredentials/contracts/276e7ec3-3ec6-e25f-b2ee-d56a6205d638/manifest}
+  credential-type: 'VerifiedCredentialEmployee'
+  issuance-uri: https://verifiedid.did.msidentity.com/v1.0/verifiableCredentials/createIssuanceRequest
+  issuance-callback-url: ${vc_issuance_callback_url:https://xxx.sa.ngrok.io/api/vc/issuance/callback}
+  issuance-request: '{ "includeQRCode": false, "callback": { "url": "${vc.issuance-callback-url}", "state": "%s", "headers": { "api-key": "%s" } }, "authority": "${vc.authority}", "registration": { "clientName": "${vc.client-name}" }, "type": "${vc.credential-type}", "manifest": "${vc.credential-manifest}" }'
+
+spring:
+  thymeleaf:
+    cache: false
+  security:
+    oauth2:
+      client:
+        use-current-uri: false
+        registration:
+          idp:
+            client-id: ${idp_oauth2_client_id:portal}
+            client-secret:  ${idp_oauth2_client_secret:00000000–0000–0000–0000–000000000000}
+            authorization-grant-type: authorization_code
+            pre-established-redirect-uri: ${idp_oauth2_redirect_uri:http://localhost:8081/issuer/login/oauth2/code/idp}
+            redirect-uri: ${idp_oauth2_redirect_uri:http://localhost:8081/issuer/login/oauth2/code/idp}
+            scope:
+              - openid
+              - profile
+          azure:
+            client-id: ${azure_oauth2_client_id:xxx}
+            client-secret: ${azure_oauth2_client_secret:xxx}
+            authorization-grant-type: client_credentials
+            scope: 3db474b9-6a0c-4840-96ac-1fceb342124f/.default
+        provider:      
+          idp: 
+           # issuer-uri: ${idp_issuer_uri:http://localhost:8080/realms/master}
+           authorization-uri: ${idp_issuer_uri}/protocol/openid-connect/auth
+           token-uri:  ${idp_issuer_uri}/protocol/openid-connect/token
+           user-info-uri: ${idp_issuer_uri}/protocol/openid-connect/userinfo
+           jwk-set-uri: ${idp_issuer_uri}/protocol/openid-connect/certs
+           user-name-attribute: sub
+          azure:
+            issuer-uri: ${azure_issuer_uri:https://login.microsoftonline.com/xxx/v2.0}
+
+
+            logging:
+  level:
+    root: ERROR
+    org.springframework.web: ERROR
+    com.twogenidentity: DEBUG
+    org.springframework.security: DEBUG
+    org.springframework.security.oauth2: DEBUG
+    org.springframework.web.client.RestTemplate: DEBUG
+    reactor.netty.http.client: DEBUG

@@ -1,0 +1,37 @@
+{
+  "id": "did:web:xxx.sa.ngrok.io",
+  "@context": [
+    "https://www.w3.org/ns/did/v1",
+    {
+      "@base": "did:web:xxx.sa.ngrok.io"
+    }
+  ],
+  "service": [
+    {
+      "id": "#linkeddomains",
+      "type": "LinkedDomains",
+      "serviceEndpoint": {
+        "origins": [
+          "https://xxx.sa.ngrok.io/"
+        ]
+      }
+    },
+    {
+      "id": "#hub",
+      "type": "IdentityHub",
+      "serviceEndpoint": {
+        "instances": [
+          "https://hub.did.msidentity.com/v1.0/xxx"
+        ]
+      }
+    }
+  ],
+  "verificationMethod": [
+    {
+    }
+  ],
+  "authentication": [
+  ],
+  "assertionMethod": [
+  ]
+}

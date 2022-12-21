@@ -1,0 +1,42 @@
+server:
+  port: ${server_port:8080}
+  use-forward-headers: true
+  forward-headers-strategy: native
+  servlet:
+    context-path: "/verifier"
+vc:
+  authority: ${vc_authority:did:web:xxx.sa.ngrok.io}
+  issuer: ${vc_issuer:did:web:xxx.sa.ngrok.io}
+  client-name: 'Verifiable Credential Employee'
+  credential-manifest: ${vc_credential_manifest:https://verifiedid.did.msidentity.com/v1.0/tenants/xxx/verifiableCredentials/contracts/xxx/manifest}
+  credential-type: 'VerifiedCredentialEmployee'
+  presentation-uri:  ${vc_presentation_uri:https://verifiedid.did.msidentity.com/v1.0/verifiableCredentials/createPresentationRequest}
+  presentation-callback-url: ${vc_presentation_callback_url:https://xxx.sa.ngrok.io/api/vc/presentation/callback}
+  presentation-request: '{ "includeQRCode": false, "callback": { "url": "${vc.presentation-callback-url}", "state": "%s", "headers": { "api-key": "%s" } }, "authority": "${vc.authority}", "registration": { "clientName": "${vc.client-name}" , "purpose": "So we can see that you verified your Employee Credential"}, "includeReceipt": false,"requestedCredentials": [ { "type": "${vc.credential-type}", "purpose": "So we can see that your Employee Verified Credential ", "acceptedIssuers": [ "${vc.issuer}" ]}],"configuration": { "validation": { "allowRevoked": true, "validateLinkedDomain": true } } }'
+
+spring:
+  thymeleaf:
+    cache: false
+  security:
+    oauth2:
+      client:
+        use-current-uri: false
+        registration:
+          azure:
+            client-id: ${azure_oauth2_client_id:7285c84f-xxx-4d09-8bdc-xxx}
+            client-secret: ${azure_oauth2_client_secret:S1s8Q~xxx~CeOt.xxx}
+            authorization-grant-type: client_credentials
+            scope: 3db474b9-6a0c-4840-96ac-1fceb342124f/.default
+        provider:
+          azure:
+            issuer-uri: ${azure_issuer_uri:https://login.microsoftonline.com/xxx/v2.0}
+
+            logging:
+  level:
+    root: ERROR
+    org.springframework.web: ERROR
+    com.twogenidentity: DEBUG
+    org.springframework.security: DEBUG
+    org.springframework.security.oauth2: DEBUG
+    org.springframework.web.client.RestTemplate: DEBUG
+    reactor.netty.http.client: DEBUG

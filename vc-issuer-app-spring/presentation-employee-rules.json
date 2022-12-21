@@ -1,0 +1,45 @@
+{
+  "attestations": {
+    "idTokens": [
+      {
+        "clientId": "authenticator",
+        "configuration": "{DOMAIN_URL}/realms/magnolia/.well-known/openid-configuration",
+        "redirectUri": "vcclient://openid",
+        "scope": "openid profile",
+        "mapping": [
+          {
+            "outputClaim": "userName",
+            "required": true,
+            "inputClaim": "$.preferred_username",
+            "indexed": false
+          },
+          {
+            "outputClaim": "displayName",
+            "required": true,
+            "inputClaim": "$.name",
+            "indexed": false
+          },
+          {
+            "outputClaim": "firstName",
+            "required": true,
+            "inputClaim": "$.given_name",
+            "indexed": false
+          },
+          {
+            "outputClaim": "lastName",
+            "required": true,
+            "inputClaim": "$.family_name",
+            "indexed": true
+          }
+        ],
+        "required": false
+      }
+    ]
+  },
+  "validityInterval": 2592000,
+  "vc": {
+    "type": [
+      "VerifiedCredentialEmployee"
+    ]
+  }
+}

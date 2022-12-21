@@ -1,0 +1,48 @@
+{
+  "id": "did:web:ed5d-190-191-157-39.sa.ngrok.io",
+  "@context": [
+    "https://www.w3.org/ns/did/v1",
+    {
+      "@base": "did:web:ed5d-190-191-157-39.sa.ngrok.io"
+    }
+  ],
+  "service": [
+    {
+      "id": "#linkeddomains",
+      "type": "LinkedDomains",
+      "serviceEndpoint": {
+        "origins": [
+          "https://ed5d-190-191-157-39.sa.ngrok.io/"
+        ]
+      }
+    },
+    {
+      "id": "#hub",
+      "type": "IdentityHub",
+      "serviceEndpoint": {
+        "instances": [
+          "https://hub.did.msidentity.com/v1.0/4600638d-90f9-43a0-8619-d2ca64250531"
+        ]
+      }
+    }
+  ],
+  "verificationMethod": [
+    {
+      "id": "#081c3ec814b3450ab783f0e6aaabfeb4vcSigningKey-6165c",
+      "controller": "did:web:ed5d-190-191-157-39.sa.ngrok.io",
+      "type": "EcdsaSecp256k1VerificationKey2019",
+      "publicKeyJwk": {
+        "crv": "secp256k1",
+        "kty": "EC",
+        "x": "L4x2z-W_aUXVkyzs3a_7bviuZea7ZZOlV6OM9gPVArs",
+        "y": "RDkbtkYZf8pLU0XQ_PlNpPLa8hxh4TjlYmFpsCwCXTk"
+      }
+    }
+  ],
+  "authentication": [
+    "#081c3ec814b3450ab783f0e6aaabfeb4vcSigningKey-6165c"
+  ],
+  "assertionMethod": [
+    "#081c3ec814b3450ab783f0e6aaabfeb4vcSigningKey-6165c"
+  ]
+}

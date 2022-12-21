@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  vc-issuer-app:
+    build: ./vc-issuer-app-spring
+    image: twogenidentity/vc-issuer-app-spring:latest
+    container_name: vc-issuer-app-spring
+    environment:
+      VC_AUTHORITY: ${VC_AUTHORITY}
+      VC_CREDENTIAL_MANIFEST: ${VC_CREDENTIAL_MANIFEST}   
+      VC_ISSUANCE_CALLBACK_URL: ${DOMAIN_URL}/issuer/api/vc/issuance/callback
+      IDP_OAUTH2_CLIENT_ID: portal
+      IDP_OAUTH2_CLIENT_SECRET: 00000000–0000–0000–0000–000000000000
+      IDP_OAUTH2_REDIRECT_URI: ${DOMAIN_URL}/issuer/login/oauth2/code/idp
+      IDP_ISSUER_URI: ${DOMAIN_URL}/realms/master
+      AZURE_OAUTH2_CLIENT_ID: ${AZURE_ISSUER_OAUTH2_CLIENT_ID}
+      AZURE_OAUTH2_CLIENT_SECRET: ${AZURE_ISSUER_OAUTH2_CLIENT_SECRET}
+      AZURE_ISSUER_URI: https://login.microsoftonline.com/${AZURE_TENANT_ID}/v2.0  
+    ports:
+      - 8082:8080
+  vc-verifier-app:
+    build: ./vc-verifier-app-spring
+    image: twogenidentity/vc-verifier-app-spring:latest
+    container_name: vc-verifier-app-spring
+    environment:
+      VC_AUTHORITY: ${VC_AUTHORITY}
+      VC_ISSUER: ${VC_AUTHORITY}
+      VC_PRESENTATION_CALLBACK_URL: ${DOMAIN_URL}/verifier/api/vc/presentation/callback
+      VC_CREDENTIAL_MANIFEST: ${VC_CREDENTIAL_MANIFEST}  
+      VC_ISSUANCE_CALLBACK_URL: ${DOMAIN_URL}/verifier/api/vc/presentation/callback
+      AZURE_OAUTH2_CLIENT_ID: ${AZURE_VERIFIER_OAUTH2_CLIENT_ID}
+      AZURE_OAUTH2_CLIENT_SECRET: ${AZURE_VERIFIER_OAUTH2_CLIENT_SECRET}
+      AZURE_ISSUER_URI: https://login.microsoftonline.com/${AZURE_TENANT_ID}/v2.0  
+    ports:
+      - 8083:8080    
