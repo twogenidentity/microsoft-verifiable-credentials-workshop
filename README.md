@@ -99,14 +99,14 @@ The following, describes gives an overview of how VC works - An article will be 
 
 | Component                 |  From                         |  To                   | 
 |:-------------------------:|:------------------------------|:----------------------|
-| ngrok                     |   Public URI                  |  .env > DOMAIN_URL    |
-| MS Entra Verified ID      |   Org Settings > Decentralized identifier (DID)                      |  .env > VC_AUTHORITY    |
-| MS Entra Verified ID      |   Credentials > VerifiedCredentialEmployee > Manifest URL                      |  .env > VC_CREDENTIAL_MANIFEST    |
+| ngrok                     |   Public URI                  |  ```.env``` > ```DOMAIN_URL```    |
+| MS Entra Verified ID      |   Org Settings > Decentralized identifier (DID)                      |  ```.env``` > ```VC_AUTHORITY```    |
+| MS Entra Verified ID      |   Credentials > VerifiedCredentialEmployee > Manifest URL                      |  ```.env``` > ```VC_CREDENTIAL_MANIFEST```    |
 | MS Entra Verified ID      |   Org Settings > TenantID                      |  .env > AZURE_TENANT_ID    |
-| Azure AD                  |   App Registration > {issuer-app} > Application (client) ID                      |  .env > AZURE_ISSUER_OAUTH2_CLIENT_ID   |
-| Azure AD                  |   App Registration > {issuer-app} > Client credentials                      |  .env > AZURE_ISSUER_OAUTH2_CLIENT_SECRET    |
-| Azure AD                  |   App Registration > {verifier-app} > Application (client) ID                      |  .env > AZURE_VERIFIER_OAUTH2_CLIENT_ID|
-| Azure AD                  |   App Registration > {verifier-app} > Application (client) ID                      |  .env > AZURE_VERIFIER_OAUTH2_CLIENT_SECRET   |
+| Azure AD                  |   App Registration > {issuer-app} > Application (client) ID                      |  ```.env``` > ```AZURE_ISSUER_OAUTH2_CLIENT_ID```   |
+| Azure AD                  |   App Registration > {issuer-app} > Client credentials                      |  ```.env``` > ```AZURE_ISSUER_OAUTH2_CLIENT_SECRET```    |
+| Azure AD                  |   App Registration > {verifier-app} > Application (client) ID                      |  ```.env``` > ```AZURE_VERIFIER_OAUTH2_CLIENT_ID```|
+| Azure AD                  |   App Registration > {verifier-app} > Application (client) ID                      |  ```.env``` > ```AZURE_VERIFIER_OAUTH2_CLIENT_SECRET```   |
 
 2. Execute following Docker Compose command to start the deployment
 
