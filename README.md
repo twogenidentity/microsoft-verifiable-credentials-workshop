@@ -10,14 +10,14 @@ The following architecture diagram describes the workshop components involved in
 
 The following, describes gives an overview of how VC works - An article will be release soon with more details, theoretical and technical background about verifiable credentials.
 
-## Workshop Scenario:
+### Workshop Scenario:
 - Magnolia Inc. (issuer) issues Employee credential (verifiable credentials) for your Employees. The employees are being authenticated with the Enterprise Identity Provider which is integrated with Magnolia Employee portal. This portal is capable of issuing Employee Verifiable credentials.
 - The employees (holder) use Microsoft Authenticator as the company’ Identity wallet for handling the authentication and verified IDs use cases.
 - Orion Global Inc. is a telecommunication company that trusts in the Employee verifiable credentials issued by Magnolia Inc. as proof of Employment. The Telco Portal can validate Magnolia Employee verifiable credentials.
 
 - The goal is to, thanks to the decentralized credentials, Magnolia employees be capable of providing a proof of Employment to Orion Global to access the portal. On the other hand, Orion is capable of verifying the employee’ authenticity, improving the user experience (KYC) in the customer onboarding and sign in processes and improving the security avoiding Identity fraud.
 
-## Workshop Technical Background Overview
+### Workshop Technical Background Overview
 
 - Magnolia Inc has configured your tenant configuration for issuing verifiable credentials in Microsoft Entra Verified ID. It also has configured the Azure ID Vault for signing credentials.
 - Magnolia Employee portal is a Spring Boot application integrated with OpenID Connect with Keycloak Access Manager. It’s also integrated with Microsoft Entra Verified Services for issuing verifiable credentials. It has configured Spring Security OAuth 2.0 for the OpenID Connect integration with Keycloak and Client Credentials grant with Azure AD.
@@ -34,47 +34,45 @@ The following, describes gives an overview of how VC works - An article will be 
 - A mobile device with Microsoft Authenticator
 - [ngrok](https://ngrok.com/) and sign up for a free account
 
-## Define your Public URL
-
-Several endpoints must be published to the Internet. In this case to simplify the workshop, I have used ngrok for exposing those services.
+## Getting Started
 
 1. Obtaining your ngrok public url
+   Several endpoints must be published to the Internet. In this case to simplify the workshop, I have used ngrok for exposing those services.
 
-    ```sh
-    docker run -it -e NGROK_AUTHTOKEN={your-ngrok-token} ngrok/ngrok:alpine http 80
+   ```sh
+   docker run -it -e NGROK_AUTHTOKEN={your-ngrok-token} ngrok/ngrok:alpine http 80
 
-    Session Status               online                                                                                                    ...
-    Forwarding                   https://f27c-190-191-157-39.sa.ngrok.io -> http://localhost     
-    ```
+   Session Status               online                                                                                                    ...
+   Forwarding                   https://f27c-190-191-157-39.sa.ngrok.io -> http://localhost     
+   ```
 
-You will use this public url for exposing the services to the Internet through an nginx container provided in the workshop, e.g.: ```DOMAIN_URL: https://6ff7-190-191-157-39.sa.ngrok.io```
-
-## Workshop GH repository
-
+   You will use this public url for exposing the services to the Internet through an nginx container provided in the workshop, e.g.: ```DOMAIN_URL: https://6ff7-190-191-157-39.sa.ngrok.io```
+ 
 2. Clone this repository
-    ```bash
-    git clone https://github.com/twogenidentity/microsoft-verifiable-credentials-workshop
-    cd microsoft-verifiable-credentials-workshop
-    ```
+ 
+   ```bash
+   git clone https://github.com/twogenidentity/microsoft-verifiable-credentials-workshop
+   cd microsoft-verifiable-credentials-workshop
+   ```
   
-## Microsoft Azure and Entra Configuration
+### Microsoft Azure and Entra Configuration Steps
 
 3. Configure your tenant for Microsoft Entra Verified ID
-    * Create an Azure Key Vault instance: 
-    * Set up the Verified ID service with the public url obtained from STEP 1.
+  * Create an Azure Key Vault instance: 
+  * Set up the Verified ID service with the public url obtained from STEP 1.
     ```
     e.g:
     Organization name: Magnolia
     Trusted domain: {your-public-url}
     Key vault: {your-kv-vault}
     ```
-    * Register an application in Azure AD.
+  * Register an application in Azure AD.
 
- 4. Configure Service endpoint configuration
+4. Configure Service endpoint configuration
 
-    * Copy or download the DID document to the did.json and did-configuration.json file in the folder microsoft-verifiable-credentials-workshop
-    * Add the value of the DOMAIN_URL to the ```.env``` file
-    * Run the following commands to expose those did json files. (e.g: https://domain/.well-known/did.json and  https://domain/.well-known/did-configuration.json) with the nginx container.
+  * Copy or download the DID document to the did.json and did-configuration.json file in the folder microsoft-verifiable-credentials-workshop
+  * Add the value of the DOMAIN_URL to the ```.env``` file
+  * Run the following commands to expose those did json files. (e.g: https://domain/.well-known/did.json and  https://domain/.well-known/did-configuration.json) with the nginx container.
 
     ```sh
     docker run -it --rm --name lb-did -p 80:80 \
@@ -83,53 +81,50 @@ You will use this public url for exposing the services to the Internet through a
     -v $(pwd)/did-configuration.json:/usr/share/nginx/html/did-configuration.json nginx:alpine
     ```
 
-    * Proceed to complete the verification steps in Microsoft Entra
+ * Proceed to complete the verification steps in Microsoft Entra
 
 5. Create the verifiable credential ```VerifiableCredentialEmployee``` for the workshop;
 
-    * Credentials > Select “Custom Credential”
-    * Credential Name: ```VerifiedCredentialEmployee```
-    * Copy and paste the content of the file ```presentation-employee-display.json``` to Display definition text box and ```presentation-employee-rules.json``` to Rules definition text box.
-    * Replace in the Rules Definition textbox the value ```{DOMAIN_URL}``` with your public domain url.
-    * Click “Create”
+  * Credentials > Select “Custom Credential”
+  * Credential Name: ```VerifiedCredentialEmployee```
+  * Copy and paste the content of the file ```presentation-employee-display.json``` to Display definition text box and ```presentation-employee-rules.json``` to Rules definition text box.
+  * Replace in the Rules Definition textbox the value ```{DOMAIN_URL}``` with your public domain url.
+  * Click “Create”
 
-Once you finish those steps stop the docker container (CTRL+C)
+ Once you finish those steps stop the docker container (CTRL+C)
 
-
-## Configure and run the workshop
+## Configure and deploy the workshop
 
 1. Adjust the ```.env``` file with your configuration.
 
-
-    | Component                 |  From                         |  To                   | 
-    |:------------------------- |:-----------------------------:|:----------------------|
-    | ngrok                     |   Public URI                  |  .env > DOMAIN_URL    |
-    | MS Entra Verified ID      |   Org Settings > Decentralized identifier (DID)                      |  .env > VC_AUTHORITY    |
-    | MS Entra Verified ID      |   Credentials > VerifiedCredentialEmployee > Manifest UR                      |  .env > VC_CREDENTIAL_MANIFEST    |
-    | MS Entra Verified ID      |   Org Settings > TenantID                      |  .env > AZURE_TENANT_ID    |
-    | Azure AD                  |   App Registration > {your-issuer-app } > Application (client) ID                      |  .env > AZURE_ISSUER_OAUTH2_CLIENT_ID    |
-    | Azure AD                  |   App Registration > {your-issuer-app } > Client credentials                      |  .env > AZURE_ISSUER_OAUTH2_CLIENT_SECRET    |
-    | Azure AD                  |   App Registration > {your-verifier-app } > Application (client) ID                      |  .env > AZURE_VERIFIER_OAUTH2_CLIENT_ID    |
-    | Azure AD                  |   App Registration > {your-verifier-app } > Application (client) ID                      |  .env > AZURE_VERIFIER_OAUTH2_CLIENT_SECRET   |
+| Component                 |  From                         |  To                   | 
+|:-------------------------:|:------------------------------|:----------------------|
+| ngrok                     |   Public URI                  |  .env > DOMAIN_URL    |
+| MS Entra Verified ID      |   Org Settings > Decentralized identifier (DID)                      |  .env > VC_AUTHORITY    |
+| MS Entra Verified ID      |   Credentials > VerifiedCredentialEmployee > Manifest URL                      |  .env > VC_CREDENTIAL_MANIFEST    |
+| MS Entra Verified ID      |   Org Settings > TenantID                      |  .env > AZURE_TENANT_ID    |
+| Azure AD                  |   App Registration > {issuer-app} > Application (client) ID                      |  .env > AZURE_ISSUER_OAUTH2_CLIENT_ID   |
+| Azure AD                  |   App Registration > {issuer-app} > Client credentials                      |  .env > AZURE_ISSUER_OAUTH2_CLIENT_SECRET    |
+| Azure AD                  |   App Registration > {verifier-app} > Application (client) ID                      |  .env > AZURE_VERIFIER_OAUTH2_CLIENT_ID|
+| Azure AD                  |   App Registration > {verifier-app} > Application (client) ID                      |  .env > AZURE_VERIFIER_OAUTH2_CLIENT_SECRET   |
 
 2. Execute following Docker Compose command to start the deployment
 
-    ```bash
-    docker-compose -f docker-compose-idp.yml -f docker-compose.yml up
-    ```
+   ```bash
+   docker-compose -f docker-compose-idp.yml -f docker-compose.yml up
+   ```
 
 3. Proceed to initialize the PoC:  
-    This script will create the OAuth
-    Clients and the users
-    ```bash
-    docker exec idp /bin/bash /opt/keycloak/init.sh
-    ```
+  This script will create the OAuth clients and the users.
+   ```bash
+   docker exec idp /bin/bash /opt/keycloak/init.sh
+   ```
 
 ## Workshop Architecture Overview
 
-```
-(you) -> https://public-url --> (nginx) http://localhost --> Path base service
-```
+  ```
+  (you) -> https://public-url --> (nginx) http://localhost --> Path base service
+  ```
 
 | Component                   |   Path Service                     |
 | ------------------------- |:-----------------------------:|
@@ -138,12 +133,11 @@ Once you finish those steps stop the docker container (CTRL+C)
 | Orion Global Telco Portal: VC Verifier Spring Boot App        |     https://public-url/verifier                      |
 | DID Configuration files                |     https://public-url/.well-know/*                    |
 
-
 # Test cases
 
 A brief introduction was described at the beginning of the readme. Nevertheless, here are described the main use cases:
 
-### Issue your Employee Verifiable Credential in the Magnolia Employee Portal
+## Issue your Employee Verifiable Credential in the Magnolia Employee Portal
 1. Access the Magnolia Employee portal and click on the sign-in button to login to the Identity provider. 
 2. Do the login process with the user ```mwellis@demo.com``` / ```1234demo!```
 3. Then, proceed to get the Employee Verifiable Credentials
@@ -151,7 +145,7 @@ A brief introduction was described at the beginning of the readme. Nevertheless,
 5. In the Authenticator app, click to login to the Identity Provider in order to identity yourself with the demo user ```mwellis@demo.com``` / ```1234demo!```
 6. Press accept button to stored in the user’s credential in the ID wallet
 
-### Sign-in with your Employee Verifiable Credential in the Orion Global Portal
+## Sign-in with your Employee Verifiable Credential in the Orion Global Portal
 7. Access the Orion Global Portal the Magnolia Employee portal and click to sign-in with your Employee Credential
 8. Scan the QR code with the Microsoft Authenticator App
 9. Accept to share the credential
