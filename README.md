@@ -36,7 +36,7 @@ The following, describes gives an overview of how VC works - An article will be 
 
 ## Getting Started
 
-1. Obtaining your ngrok public url
+1. Obtaining your ngrok public url  
    Several endpoints must be published to the Internet. In this case to simplify the workshop, I have used ngrok for exposing those services.
 
    ```sh
@@ -58,21 +58,21 @@ The following, describes gives an overview of how VC works - An article will be 
 ### Microsoft Azure and Entra Configuration Steps
 
 3. Configure your tenant for Microsoft Entra Verified ID
-  * Create an Azure Key Vault instance: 
-  * Set up the Verified ID service with the public url obtained from STEP 1.
+  * Create an Azure Key Vault instance
+  * Set up the Verified ID service with the public url obtained from STEP 1
     ```
     e.g:
     Organization name: Magnolia
     Trusted domain: {your-public-url}
     Key vault: {your-kv-vault}
     ```
-  * Register an application in Azure AD.
+  * Register an application in Azure AD
 
 4. Configure Service endpoint configuration
 
   * Copy or download the DID document to the did.json and did-configuration.json file in the folder microsoft-verifiable-credentials-workshop
   * Add the value of the DOMAIN_URL to the ```.env``` file
-  * Run the following commands to expose those did json files. (e.g: https://domain/.well-known/did.json and  https://domain/.well-known/did-configuration.json) with the nginx container.
+  * Run the following commands to expose those did json files. (e.g: https://domain/.well-known/did.json and  https://domain/.well-known/did-configuration.json) with the nginx container
 
     ```sh
     docker run -it --rm --name lb-did -p 80:80 \
@@ -87,8 +87,8 @@ The following, describes gives an overview of how VC works - An article will be 
 
   * Credentials > Select “Custom Credential”
   * Credential Name: ```VerifiedCredentialEmployee```
-  * Copy and paste the content of the file ```presentation-employee-display.json``` to Display definition text box and ```presentation-employee-rules.json``` to Rules definition text box.
-  * Replace in the Rules Definition textbox the value ```{DOMAIN_URL}``` with your public domain url.
+  * Copy and paste the content of the file ```presentation-employee-display.json``` to Display definition text box and ```presentation-employee-rules.json``` to Rules definition text box
+  * Replace in the Rules Definition textbox the value ```{DOMAIN_URL}``` with your public domain url
   * Click “Create”
 
  Once you finish those steps stop the docker container (CTRL+C)
@@ -122,16 +122,17 @@ The following, describes gives an overview of how VC works - An article will be 
 
 ## Workshop Architecture Overview
 
-  ```
-  (you) -> https://public-url --> (nginx) http://localhost --> Path base service
-  ```
+  Here is an overview of the deployed component as container.
+  
+  ngrok: ```https://public-url``` --> nginx container: ```http://localhost``` --> Path base services :point_down:
+ 
 
 | Component                   |   Path Service                     |
 | ------------------------- |:-----------------------------:|
 | Enterprise Identity Provider: Keycloak         |   https://public-url/                      |
 | Magnolia Inc Employee Portal: VC Issuer Spring Boot App |    https://public-url/issuer                      |
 | Orion Global Telco Portal: VC Verifier Spring Boot App        |     https://public-url/verifier                      |
-| DID Configuration files                |     https://public-url/.well-know/*                    |
+| DID Configuration files                |     https://public-url/.well-know/did.json & did-configuration.json                    |
 
 # Test cases
 
