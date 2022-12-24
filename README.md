@@ -1,7 +1,7 @@
 # Workshop Microsoft Verifiable Credentials for Keycloak Identity Claims (SSI)
 This repository demonstrates how to integrate [Microsoft Entra Verified ID](https://www.microsoft.com/en-us/security/business/identity-access/microsoft-entra-verified-id) with [Keycloak](https://www.keycloak.org/) Access Manager for issuing [Verifiable Credentials](https://www.w3.org/TR/vc-data-model/) based Keycloak id tokens. Nevertheless, you can also integrate your Identity Provider with the demo.
 ## In Short
-This workshop is based on the concept of [Decentralized Identity](https://identity.foundation/) (also known as ​​Verifiable Credentials) which leads to the idea that identity-related information should be self-controlled, portable and with decentralized identifiers. In short, self-sovereign identity (SSI) or [decentralized identity](https://www.w3.org/TR/did-core/) (DID) is a method of identity that centers the control of information around the user.
+This workshop is based on the concept of [Decentralized Identity](https://identity.foundation/) (also known as Verifiable Credentials) which leads to the idea that identity-related information should be self-controlled, portable and with decentralized identifiers. In short, self-sovereign identity (SSI) or [decentralized identity](https://www.w3.org/TR/did-core/) (DID) is a method of identity that centers the control of information around the user.
 VC are tamper-proof, cryptographically verifiable claims made by the issuer. Every attestation or Verifiable Credential that an entity (e.g., an organization) issues are associated with their DID.
 
 The following architecture diagram describes the workshop components involved in the verifiable credentials ecosystem.
@@ -102,7 +102,7 @@ The following, describes gives an overview of how VC works - An article will be 
 | ngrok                     |   Public URI                  |  ```.env``` > ```DOMAIN_URL```    |
 | MS Entra Verified ID      |   Org Settings > Decentralized identifier (DID)                      |  ```.env``` > ```VC_AUTHORITY```    |
 | MS Entra Verified ID      |   Credentials > VerifiedCredentialEmployee > Manifest URL                      |  ```.env``` > ```VC_CREDENTIAL_MANIFEST```    |
-| MS Entra Verified ID      |   Org Settings > TenantID                      |  .env > AZURE_TENANT_ID    |
+| MS Entra Verified ID      |   Org Settings > TenantID                      |  ```.env``` > ```AZURE_TENANT_ID```    |
 | Azure AD                  |   App Registration > {issuer-app} > Application (client) ID                      |  ```.env``` > ```AZURE_ISSUER_OAUTH2_CLIENT_ID```   |
 | Azure AD                  |   App Registration > {issuer-app} > Client credentials                      |  ```.env``` > ```AZURE_ISSUER_OAUTH2_CLIENT_SECRET```    |
 | Azure AD                  |   App Registration > {verifier-app} > Application (client) ID                      |  ```.env``` > ```AZURE_VERIFIER_OAUTH2_CLIENT_ID```|
