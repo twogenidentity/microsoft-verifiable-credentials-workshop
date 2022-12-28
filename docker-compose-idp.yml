@@ -5,19 +5,6 @@ volumes:
     driver: local
 
 services:
-  lb:
-    image: nginx:alpine
-    container_name: lb
-    volumes:
-      - $PWD/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
-      - $PWD/did.json:/usr/share/nginx/html/did.json
-      - $PWD/did-configuration.json:/usr/share/nginx/html/did-configuration.json
-    environment:
-      NGINX_LOG_LEVEL: debug
-    ports:
-      - "80:80"
-    depends_on:
-      - idp
   postgres:
     image: postgres:11
     container_name: postgres

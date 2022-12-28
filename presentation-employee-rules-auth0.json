@@ -3,14 +3,14 @@
     "idTokens": [
       {
         "clientId": "authenticator",
-        "configuration": "{DOMAIN_URL}/realms/master/.well-known/openid-configuration",
+        "configuration": "{AUTH0_DOMAIN}/.well-known/openid-configuration",
         "redirectUri": "vcclient://openid",
         "scope": "openid profile",
         "mapping": [
           {
             "outputClaim": "userName",
             "required": false,
-            "inputClaim": "$.preferred_username",
+            "inputClaim": "$.nickname",
             "indexed": false
           },
           {

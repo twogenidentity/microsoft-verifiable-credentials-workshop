@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  lb:
+    image: nginx:alpine
+    container_name: lb
+    volumes:
+      - $PWD/nginx/base.conf:/etc/nginx/conf.d/default.conf
+      - $PWD/nginx/did-location.conf:/etc/nginx/includes/did-location.conf
+      - $PWD/nginx/apps-location.conf:/etc/nginx/includes/apps-location.conf
+      - $PWD/nginx/apps-upstream.conf:/etc/nginx/includes/apps-upstream.conf
+      - $PWD/nginx/idp-location.conf:/etc/nginx/includes/idp-location.conf
+      - $PWD/nginx/idp-upstream.conf:/etc/nginx/includes/idp-upstream.conf
+      - $PWD/did.json:/usr/share/nginx/html/did.json
+      - $PWD/did-configuration.json:/usr/share/nginx/html/did-configuration.json
+    environment:
+      NGINX_LOG_LEVEL: debug
+    ports:
+      - "80:80"
+    

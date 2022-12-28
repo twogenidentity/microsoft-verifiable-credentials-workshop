@@ -1,0 +1,17 @@
+{
+  "name": "auth0-deploy-cli",
+  "version": "1.0.0",
+  "description": "Tool for exporting and importing Auth0 Tenant configuration with Auth0 cli",
+  "author": "Martin Besozzi <embesozzi@t.com>)",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "auth0:export": "node export.js",
+    "auth0:import": "node import.js"
+  },
+  "dependencies": {
+    "auth0-deploy-cli": "^7.3.2",
+    "dotenv": "^16.0.3"
+  }
+}

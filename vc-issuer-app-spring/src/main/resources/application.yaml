@@ -22,14 +22,15 @@ spring:
         use-current-uri: false
         registration:
           idp:
-            client-id: ${idp_oauth2_client_id:portal}
-            client-secret:  ${idp_oauth2_client_secret:00000000–0000–0000–0000–000000000000}
+            client-id: ${idp_oauth2_client_id:a0tOVkUiRa4A28VcKK8rblszrFQaDv7X}
+            client-secret:  ${idp_oauth2_client_secret:Qjio73iHe7hWMl8wNj-zxliXzGHPrvoDpnQgrtnanGN24pTHThpD1N78ITrPkCO3}
             authorization-grant-type: authorization_code
             pre-established-redirect-uri: ${idp_oauth2_redirect_uri:http://localhost:8081/issuer/login/oauth2/code/idp}
             redirect-uri: ${idp_oauth2_redirect_uri:http://localhost:8081/issuer/login/oauth2/code/idp}
             scope:
               - openid
               - profile
+              - email
           azure:
             client-id: ${azure_oauth2_client_id:xxx}
             client-secret: ${azure_oauth2_client_secret:xxx}
@@ -37,17 +38,17 @@ spring:
             scope: 3db474b9-6a0c-4840-96ac-1fceb342124f/.default
         provider:      
           idp: 
-           # issuer-uri: ${idp_issuer_uri:http://localhost:8080/realms/master}
-           authorization-uri: ${idp_issuer_uri}/protocol/openid-connect/auth
-           token-uri:  ${idp_issuer_uri}/protocol/openid-connect/token
-           user-info-uri: ${idp_issuer_uri}/protocol/openid-connect/userinfo
-           jwk-set-uri: ${idp_issuer_uri}/protocol/openid-connect/certs
-           user-name-attribute: sub
+            issuer-uri: ${idp_issuer_uri:http://localhost:8080/realms/master}
+#           authorization-uri: ${idp_issuer_uri}/protocol/openid-connect/auth
+#           token-uri:  ${idp_issuer_uri}/protocol/openid-connect/token
+#           user-info-uri: ${idp_issuer_uri}/protocol/openid-connect/userinfo
+#           jwk-set-uri: ${idp_issuer_uri}/protocol/openid-connect/certs
+#           user-name-attribute: sub
           azure:
-            issuer-uri: ${azure_issuer_uri:https://login.microsoftonline.com/xxx/v2.0}
+            issuer-uri: ${azure_issuer_uri:https://login.microsoftonline.com/4600638d-90f9-43a0-8619-d2ca64250531/v2.0}
 
 
-            logging:
+logging:
   level:
     root: ERROR
     org.springframework.web: ERROR

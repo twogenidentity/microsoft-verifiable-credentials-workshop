@@ -69,40 +69,17 @@ public class VerifiableCredentialsController {
 			// throw new RuntimeException(e);
 			log.debug(e.getMessage());
 		}
-
-		/**
-		try {
-			log.debug("Getting did from : {}",  ResourceUtils.getFile("classpath:did.json").toPath()  );
-		} catch (FileNotFoundException e) {
-			// throw new RuntimeException(e);
-			log.debug(e.getMessage());
-		}
-
-		try {
-			// log.debug("Getting did from : {}",  resourceLoader.getResource("classpath:did.json").getURI()  );
-			File resource = new ClassPathResource("did.json").getFile();
-			log.debug("resource {}", new String(
-					Files.readAllBytes(resource.toPath())));
-		} catch (FileNotFoundException e) {
-			// throw new RuntimeException(e);
-			log.debug(e.getMessage());
-		} catch (IOException e) {
-			// throw new RuntimeException(e);
-			log.debug(e.getMessage());
-		}
-
-		InputStream resource = new ClassPathResource("did.json").getInputStream();
-		try ( BufferedReader reader = new BufferedReader( new InputStreamReader(resource)) ) {
-			String employees = reader.lines().collect(Collectors.joining("\n"));
-			log.debug("stream: {}",employees);
-		}}
-		**/
 		return ResponseEntity.ok().body(new String(Files.readAllBytes(didResource.getFile().toPath())));
 	}
 
 	@GetMapping("/.well-known/did-configuration.json")
 	public ResponseEntity<String> didConfiguration() throws IOException {
 		return ResponseEntity.ok().body(new String(Files.readAllBytes(didConfigurationResource.getFile().toPath())));
+	}
+
+	@GetMapping("/api/me/idtoken")
+	public ResponseEntity<String> getIdToken(@AuthenticationPrincipal OidcUser oauth2User) {
+		return ResponseEntity.ok().body(oauth2User.getIdToken().getTokenValue());
 	}
 
 	@GetMapping("/api/me")
