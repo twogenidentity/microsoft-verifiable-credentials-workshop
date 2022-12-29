@@ -123,7 +123,7 @@ Here is explained how to do the importing by using the node app with ```auth0-de
    cd auth0\node-deploy-cli
    npm run auth0:import
    ```
-3. Adjust the following variables in the ```docker-compose.yml``` file with the issuer (portal) client id and client secret and the Auth0 issuer URI:
+3. Adjust the following variables in ```.env``` file with the issuer (portal) client id and client secret and the Auth0 issuer URI:
     ```yaml
     IDP_OAUTH2_CLIENT_ID:
     IDP_OAUTH2_CLIENT_SECRET:
@@ -183,4 +183,16 @@ A brief introduction was described at the beginning of the readme. Nevertheless,
 
 Here is a video showing the used cases described before.
 
+## Auth0 integration
+
+Issue Employee Cerifiable Credential based on Auth0 identity tokens
+
+![Auth0-Testcase-0](doc/video/auth0-part1.gif)
+
+Verify Employee verifiable credential
+
+![Auth0-Testcase-1](doc/video/auth0-part2.gif)
+
+## Keycloak integration
+Issue Employee Cerifiable Credential based on Keycloak identity tokens
 [![Testcases](doc/video/testcases.gif)](https://youtu.be/3C_TEuwX_eE)
