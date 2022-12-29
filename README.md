@@ -116,7 +116,7 @@ The followin gives an overview of how VC works - An article will be released soo
 ## Choose your Identity Provider
 ### Integration with your Auth0 tenant
 
-2. Proceed to import the OAuth clients with ```auth0-deploy-cli``` or create the OAuth clients through the Auth0 Console taking the files in the [```auth0\node-deploy-cli\data\clients```](auth0/node-deploy-cli-data-clients) folder as a reference  
+2. Proceed to import the OAuth clients with ```auth0-deploy-cli``` or create the OAuth clients through the Auth0 Console taking the files in the [```auth0\node-deploy-cli\data\clients```](auth0/node-deploy-cli/data/clients) folder as a reference  
 Here is explained how to do the importing by using the node app with ```auth0-deploy-cli```:
 - Complete the variables in the ```.env``` file located in the folder ```auth0\node-deploy-cli``` and run the folowing command:
    ```bash
