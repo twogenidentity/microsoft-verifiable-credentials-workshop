@@ -85,7 +85,7 @@ The followin gives an overview of how VC works - An article will be released soo
 
  * Proceed to complete the verification steps in Microsoft Entra
 
-5. Create the verifiable credential ```VerifiableCredentialEmployee``` for the workshop;
+5. Create the verifiable credential ```VerifiableCredentialEmployee``` for the workshop:
 
   * Credentials > Select “Custom Credential”
   * Credential Name: ```VerifiedCredentialEmployee```
@@ -95,7 +95,8 @@ The followin gives an overview of how VC works - An article will be released soo
     * For Keycloak: Copy and paste the ```presentation-employee-rules.json``` to Rules definition text box and replace in the Rules Definition textbox the value ```{DOMAIN_URL}``` with your public domain url  
   * Click “Create”
 
- Once you finish those steps stop the docker container (CTRL+C)
+    <img src="doc/images/ms-verified-credential.png" width="50%" height="80%"> 
+ Once you finish those steps stop the docker container ( <kbd>Ctrl</kbd>+<kbd>C</kbd>)
 
 ## Configure and deploy the workshop
 
@@ -115,7 +116,7 @@ The followin gives an overview of how VC works - An article will be released soo
 ## Choose your Identity Provider
 ### Integration with your Auth0 tenant
 
-2. Proceed to import the OAuth clients with ```auth0-deploy-cli``` or create the OAuth clients through the Auth0 Console taking the files in the ```auth0\node-deploy-cli\data\clients``` folder as a reference  
+2. Proceed to import the OAuth clients with ```auth0-deploy-cli``` or create the OAuth clients through the Auth0 Console taking the files in the [```auth0\node-deploy-cli\data\clients```](auth0/node-deploy-cli-data-clients) folder as a reference  
 Here is explained how to do the importing by using the node app with ```auth0-deploy-cli```:
 - Complete the variables in the ```.env``` file located in the folder ```auth0\node-deploy-cli``` and run the folowing command:
    ```bash
