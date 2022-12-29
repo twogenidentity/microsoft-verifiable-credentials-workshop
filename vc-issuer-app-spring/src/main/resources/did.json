@@ -1,9 +1,9 @@
 {
-  "id": "did:web:ed5d-190-191-157-39.sa.ngrok.io",
+  "id": "did:web:xxx.sa.ngrok.io",
   "@context": [
     "https://www.w3.org/ns/did/v1",
     {
-      "@base": "did:web:ed5d-190-191-157-39.sa.ngrok.io"
+      "@base": "did:web:xxx.sa.ngrok.io"
     }
   ],
   "service": [
@@ -12,7 +12,7 @@
       "type": "LinkedDomains",
       "serviceEndpoint": {
         "origins": [
-          "https://ed5d-190-191-157-39.sa.ngrok.io/"
+          "https://xxx.sa.ngrok.io/"
         ]
       }
     },
@@ -29,7 +29,7 @@
   "verificationMethod": [
     {
       "id": "#081c3ec814b3450ab783f0e6aaabfeb4vcSigningKey-6165c",
-      "controller": "did:web:ed5d-190-191-157-39.sa.ngrok.io",
+      "controller": "did:web:xxx.sa.ngrok.io",
       "type": "EcdsaSecp256k1VerificationKey2019",
       "publicKeyJwk": {
         "crv": "secp256k1",
