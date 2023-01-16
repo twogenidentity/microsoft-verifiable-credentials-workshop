@@ -1,0 +1,32 @@
+{
+  "name": "vc-verifier-app-node",
+  "description": "Verifiable Credential Verifier App using Sphereon library",
+  "author": "Martin Besozzi <embesozzi@gmail.com>",
+  "version": "1.0.0",
+  "license": "MIT",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@decentralized-identity/ion-tools": "^1.0.3",
+    "@sphereon/did-auth-siop": "^0.3.0-unstable.2",
+    "base64url": "^3.0.1",
+    "debug": "^4.3.4",
+    "did-jwt": "^6.11.0",
+    "did-resolver": "4.0.0",
+    "jose": "^4.11.2",
+    "key-did-resolver": "2.1.2",
+    "web-did-resolver": "2.0.20",
+    "express": "^4.18.2",
+    "dotenv": "^16.0.3"
+  },
+  "devDependencies": {
+    "copy-webpack-plugin": "^11.0.0",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1",
+    "webpack-dev-server": "^4.11.1"
+  }
+}

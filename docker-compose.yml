@@ -32,4 +32,17 @@ services:
       AZURE_OAUTH2_CLIENT_SECRET: ${AZURE_VERIFIER_OAUTH2_CLIENT_SECRET}
       AZURE_ISSUER_URI: https://login.microsoftonline.com/${AZURE_TENANT_ID}/v2.0  
     ports:
-      - 8083:8080    
+      - 8083:8080
+  vc-verifier-app-node:
+    build: ./vc-verifier-app-node
+    image: twogenidentity/vc-verifier-app-node:latest
+    container_name: vc-verifier-app-node
+    environment:
+      DOMAIN_URL: ${DOMAIN_URL}
+      VC_AUTHORITY: ${VC_AUTHORITY}
+      PRIVATE_KEY_HEX: ${VC_ISSUER_PRIVATE_KEY_HEX}
+      DID: ${VC_ISSUER_DID}
+      DID_LONG: ${VC_ISSUER_DID_LONG} 
+      DID_KEY: ${VC_ISSUER_DID_KEY}
+    ports:
+      - 8084:8081          
